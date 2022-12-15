@@ -5,9 +5,7 @@ interface Props {
 }
 
 const Layout = ({ children }: Props) => {
-	return (
-		<div className="w-11/12 max-w-screen-sm mx-auto h-screen">{children}</div>
-	);
+	return <div className="max-w-screen-sm mx-auto h-screen">{children}</div>;
 };
 
 export default Layout;
