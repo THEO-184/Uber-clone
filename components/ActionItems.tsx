@@ -1,5 +1,6 @@
 import Image from "next/image";
 import React from "react";
+import Link from "next/link";
 
 const ActionItems = () => {
 	return (
@@ -26,17 +27,19 @@ const ActionItems = () => {
 			{/* ACTION BTNS */}
 
 			<div className="my-2 flex text-center">
-				<div className="card">
-					<Image
-						src={"https://i.ibb.co/cyvcpfF/uperx.png"}
-						alt="ride"
-						width={"20"}
-						height="20"
-						className="w-12 h-12 object-cover"
-					/>
+				<Link href={"/search"} className="card">
+					<div className="">
+						<Image
+							src={"https://i.ibb.co/cyvcpfF/uperx.png"}
+							alt="ride"
+							width={"20"}
+							height="20"
+							className="w-12 h-12 object-cover"
+						/>
 
-					<p>Ride</p>
-				</div>
+						<p>Ride</p>
+					</div>
+				</Link>
 				<div className="card">
 					<Image
 						src={"https://i.ibb.co/n776JLm/bike.png"}
