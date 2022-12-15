@@ -33,6 +33,10 @@ const Search = () => {
 				</div>
 				<p>Saved Places</p>
 			</div>
+
+			<div className="bg-black text-white py-1 m-2 cursor-pointer">
+				<button className="text-center w-full">Confirm Locations</button>
+			</div>
 		</div>
 	);
 };
