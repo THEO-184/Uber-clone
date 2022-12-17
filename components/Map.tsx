@@ -2,8 +2,14 @@ import Image from "next/image";
 import React, { useState } from "react";
 import ReactMapGL, { Marker, Popup } from "react-map-gl";
 
-const Map = () => {
-	const [showPopUp, setShowPopUp] = useState(false);
+type Coordinates = [number, number];
+interface Props<T> {
+	pickupCoordinates?: T;
+	dropofCoordinates?: T;
+}
+
+const Map = ({ pickupCoordinates, dropofCoordinates }: Props<Coordinates>) => {
+	const [showPickUpPopUp, setShowPickUpPopUp] = useState(false);
 
 	return (
 		<>
@@ -18,24 +24,48 @@ const Map = () => {
 				boxZoom
 				mapStyle={"mapbox://styles/mapbox/streets-v11"}
 			>
-				<Popup
-					latitude={5.692858}
-					longitude={-0.029869}
-					anchor="top-right"
-					closeButton={false}
-					closeOnClick
-				>
-					I am pop up
-				</Popup>
+				{showPickUpPopUp ? (
+					<Popup
+						latitude={5.692858}
+						longitude={-0.029869}
+						anchor="top-right"
+						closeButton={false}
+						closeOnClick
+					>
+						pickup
+					</Popup>
+				) : null}
 				)
-				<Marker latitude={5.692858} longitude={-0.029869} offset={[10, 10]}>
-					<Image
-						alt="marker"
-						src={"/images/marker-icon.png"}
-						width="30"
-						height={"30"}
-					/>
-				</Marker>
+				{pickupCoordinates ? (
+					<Marker
+						latitude={pickupCoordinates[1]}
+						longitude={pickupCoordinates[0]}
+						offset={[10, 10]}
+					>
+						<Image
+							alt="marker"
+							src={"/images/marker-icon.png"}
+							width="30"
+							height={"30"}
+							onMouseOver={() => setShowPickUpPopUp(true)}
+							onMouseLeave={() => setShowPickUpPopUp(false)}
+						/>
+					</Marker>
+				) : null}
+				{dropofCoordinates ? (
+					<Marker
+						latitude={dropofCoordinates[1]}
+						longitude={dropofCoordinates[0]}
+						offset={[10, 10]}
+					>
+						<Image
+							alt="marker"
+							src={"/images/drop-off.png"}
+							width="30"
+							height={"30"}
+						/>
+					</Marker>
+				) : null}
 			</ReactMapGL>
 		</>
 	);

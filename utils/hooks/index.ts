@@ -13,7 +13,7 @@ export const useGetCoordinates = (location: string) => {
 
 	useEffect(() => {
 		getCoordinates();
-	}, []);
+	}, [location]);
 
 	return { coordinates };
 };

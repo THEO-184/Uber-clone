@@ -8,6 +8,7 @@ export async function fetchCoordinates(
 			`https://api.mapbox.com/geocoding/v5/mapbox.places/${location}.json?` +
 				new URLSearchParams({
 					access_token: process.env.NEXT_PUBLIC_MAPBOX_TOKEN!,
+					limit: "1",
 				})
 		);
 		const coordinates = await response.json();
