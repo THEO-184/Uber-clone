@@ -1,10 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import Head from "next/head";
 import Link from "next/link";
 import SearchLocation from "../components/SearchLocation";
 
+export type onChangeEventType = React.ChangeEventHandler<HTMLInputElement>;
+
 const Search = () => {
+	const [pickupLocation, setPickupLocation] = useState("");
+	const [dropOffLocation, setdropOffLocation] = useState("");
+
+	const handleSetPickupLocation: onChangeEventType = (e) => {
+		setPickupLocation(e.target.value);
+	};
+	const handleSetDropOffLocation: onChangeEventType = (e) => {
+		setdropOffLocation(e.target.value);
+	};
+	console.log("pickup", pickupLocation);
 	return (
 		<div className="h-screen w-fulll  bg-gray-200">
 			<Head>
@@ -21,7 +33,10 @@ const Search = () => {
 					/>
 				</Link>
 			</div>
-			<SearchLocation />
+			<SearchLocation
+				handleSetDropOffLocation={handleSetDropOffLocation}
+				handleSetPickupLocation={handleSetPickupLocation}
+			/>
 			<div className="bg-white flex items-center px-4 py-2">
 				<div className="relative block w-10 h-10 mr-2">
 					<Image
@@ -35,7 +50,18 @@ const Search = () => {
 			</div>
 
 			<div className="bg-black text-white py-3 px-4 mt-2 mx-4  cursor-pointer">
-				<button className="text-center w-full">Confirm Locations</button>
+				<Link
+					className="text-center w-full block"
+					href={{
+						pathname: "/confirm",
+						query: {
+							pickup: pickupLocation,
+							dropOff: dropOffLocation,
+						},
+					}}
+				>
+					Confirm Locations
+				</Link>
 			</div>
 		</div>
 	);

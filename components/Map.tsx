@@ -23,6 +23,9 @@ const Map = ({ pickupCoordinates, dropofCoordinates }: Props<Coordinates>) => {
 		zoom: 10,
 	});
 
+	console.log(dropofCoordinates, "dropoff");
+	console.log("pickip", pickupCoordinates);
+
 	const handleViewState = (e: ViewStateChangeEvent) => {
 		setViewPort({
 			longitude: e.viewState.longitude,
@@ -39,8 +42,14 @@ const Map = ({ pickupCoordinates, dropofCoordinates }: Props<Coordinates>) => {
 				boxZoom
 				onMove={handleViewState}
 				mapStyle={"mapbox://styles/mapbox/streets-v11"}
+				initialViewState={{
+					bounds:
+						dropofCoordinates && pickupCoordinates
+							? [pickupCoordinates, dropofCoordinates]
+							: undefined,
+				}}
 			>
-				{showPickUpPopUp ? (
+				{/* {showPickUpPopUp ? (
 					<Popup
 						latitude={5.692858}
 						longitude={-0.029869}
@@ -50,9 +59,9 @@ const Map = ({ pickupCoordinates, dropofCoordinates }: Props<Coordinates>) => {
 					>
 						pickup
 					</Popup>
-				) : null}
+				) : null} */}
 				)
-				{pickupCoordinates ? (
+				{pickupCoordinates && pickupCoordinates?.length ? (
 					<Marker
 						latitude={pickupCoordinates[1]}
 						longitude={pickupCoordinates[0]}
@@ -68,7 +77,7 @@ const Map = ({ pickupCoordinates, dropofCoordinates }: Props<Coordinates>) => {
 						/>
 					</Marker>
 				) : null}
-				{dropofCoordinates ? (
+				{dropofCoordinates && dropofCoordinates?.length ? (
 					<Marker
 						latitude={dropofCoordinates[1]}
 						longitude={dropofCoordinates[0]}

@@ -1,7 +1,16 @@
 import React from "react";
 import Image from "next/image";
+import { onChangeEventType } from "../pages/search";
 
-const SearchLocation = () => {
+interface Props {
+	handleSetPickupLocation: onChangeEventType;
+	handleSetDropOffLocation: onChangeEventType;
+}
+
+const SearchLocation = ({
+	handleSetDropOffLocation,
+	handleSetPickupLocation,
+}: Props) => {
 	return (
 		<div className="bg-white flex items-center px-4 mb-2">
 			<div className="w-10 flex flex-col items-center">
@@ -37,11 +46,13 @@ const SearchLocation = () => {
 					type="text"
 					className="h-10 bg-gray-200 my-2 outline-none p-2 rounded-sm"
 					placeholder="Enter pickup location"
+					onChange={handleSetPickupLocation}
 				/>
 				<input
 					type="text"
 					className="h-10 bg-gray-200 my-2 outline-none p-2 rounded-sm"
 					placeholder="Where to?"
+					onChange={handleSetDropOffLocation}
 				/>
 			</div>
 			<div className="plus-icon relative block w-7 h-7 sm:w-10 sm:h-10 ml-2">
