@@ -33,3 +33,9 @@ export interface RootObject {
 	features: Feature[];
 	attribution: string;
 }
+
+export interface carListType {
+	imgUrl: string;
+	service: string;
+	multiplier: number;
+}

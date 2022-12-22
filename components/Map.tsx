@@ -23,9 +23,6 @@ const Map = ({ pickupCoordinates, dropofCoordinates }: Props<Coordinates>) => {
 		zoom: 10,
 	});
 
-	console.log(dropofCoordinates, "dropoff");
-	console.log("pickip", pickupCoordinates);
-
 	const handleViewState = (e: ViewStateChangeEvent) => {
 		setViewPort({
 			longitude: e.viewState.longitude,
