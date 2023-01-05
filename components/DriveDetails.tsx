@@ -10,7 +10,7 @@ interface Props {
 
 const DriveDetails = ({ image, title, time, price }: Props) => {
 	return (
-		<div className="flex py-2 px-3 items-center flex-1">
+		<div className="flex p-4 items-center flex-1">
 			<div className="flex-1 flex items-center">
 				<Image
 					src={image}

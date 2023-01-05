@@ -24,12 +24,12 @@ const Confirm = () => {
 					dropofCoordinates={dropOffCoordinates?.features[0]?.center}
 				/>
 			</div>
-			<div className="flex-1 flex flex-col bg-white">
+			<div className="flex-1 flex flex-col bg-white overflow-y-scroll">
 				<div className="flex-1">
 					<p className="text-center text-gray-500 py-2 border-b-2 text-sm">
 						Choose a ride, or swipe up for more.
 					</p>
-					<div className="flex flex-col">
+					<div className="flex flex-col overflow-y-scroll flex-1">
 						{carList.map((car, id) => {
 							const { imgUrl, multiplier, service } = car;
 							return (
