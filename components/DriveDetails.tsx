@@ -5,7 +5,7 @@ interface Props {
 	image: string;
 	title: string;
 	time: string;
-	price: number;
+	price: string;
 }
 
 const DriveDetails = ({ image, title, time, price }: Props) => {

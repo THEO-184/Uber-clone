@@ -1,28 +1,39 @@
 import React from "react";
 import Map from "../components/Map";
 import { useRouter } from "next/router";
-import { useGetCoordinates } from "../utils/hooks";
-import Image from "next/image";
+import { useGetCoordinates, useGetDistanceDuration } from "../utils/hooks";
 import DriveDetails from "../components/DriveDetails";
 import { carList } from "../utils/constants";
+import BackBtn from "../components/Buttons";
 
 const Confirm = () => {
 	const { query } = useRouter();
 	const { pickup, dropOff } = query;
 
-	const { coordinates: pickUpCoordinates } = useGetCoordinates(
-		pickup as string
-	);
-	const { coordinates: dropOffCoordinates } = useGetCoordinates(
-		dropOff as string
-	);
+	const { coordinates: pickUpCoords } = useGetCoordinates(pickup as string);
+	const { coordinates: dropOfCoords } = useGetCoordinates(dropOff as string);
+	const pickUpCoordinates = pickUpCoords?.features[0]?.center!;
+	const dropOffCoordinates = dropOfCoords?.features[0]?.center!;
+	const { duration } = useGetDistanceDuration({
+		pickUpX: pickUpCoordinates && pickUpCoordinates[0],
+		pickUpY: pickUpCoordinates && pickUpCoordinates[1],
+		dropOffX: dropOffCoordinates && dropOffCoordinates[0],
+		dropOffY: dropOffCoordinates && dropOffCoordinates[1],
+	});
+
 	return (
-		<div className="flex flex-col h-screen">
-			<div className="flex-1">
+		<div className="flex flex-col h-screen ">
+			<div className="flex-1 relative">
 				<Map
-					pickupCoordinates={pickUpCoordinates?.features[0]?.center}
-					dropofCoordinates={dropOffCoordinates?.features[0]?.center}
+					pickupCoordinates={pickUpCoordinates}
+					dropofCoordinates={dropOffCoordinates}
 				/>
+				<div className="w-8 h-8 rounded-full bg-white absolute flex items-center justify-center p-1 left-4 top-4 shadow-md">
+					<BackBtn
+						to="/search"
+						image="https://img.icons8.com/ios-filled/50/000000/left.png"
+					/>
+				</div>
 			</div>
 			<div className="flex-1 flex flex-col bg-white overflow-y-scroll">
 				<div className="flex-1">
@@ -35,7 +46,7 @@ const Confirm = () => {
 							return (
 								<DriveDetails
 									image={imgUrl}
-									price={20.32}
+									price={(duration * multiplier).toFixed(2)}
 									time={`${5 * multiplier} min away`}
 									title={service}
 									key={id}

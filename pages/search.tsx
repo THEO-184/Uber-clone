@@ -3,6 +3,7 @@ import Image from "next/image";
 import Head from "next/head";
 import Link from "next/link";
 import SearchLocation from "../components/SearchLocation";
+import BackBtn from "../components/Buttons";
 
 export type onChangeEventType = React.ChangeEventHandler<HTMLInputElement>;
 
@@ -23,15 +24,10 @@ const Search = () => {
 				<title>Search any location</title>
 			</Head>
 			<div className="cursor-pointer bg-white px-4">
-				<Link href="/">
-					<Image
-						alt="backBtn"
-						src={"https://img.icons8.com/ios-filled/50/000000/left.png"}
-						width="32"
-						height={"32"}
-						className=""
-					/>
-				</Link>
+				<BackBtn
+					to="/"
+					image="https://img.icons8.com/ios-filled/50/000000/left.png"
+				/>
 			</div>
 			<SearchLocation
 				handleSetDropOffLocation={handleSetDropOffLocation}

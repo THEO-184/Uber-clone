@@ -26,19 +26,4 @@ export const carList: carListType[] = [
 		service: "Black SUV",
 		multiplier: 2.8,
 	},
-	{
-		imgUrl: "https://i.ibb.co/1nStPWT/uberblacksuv.png",
-		service: "Black SUV",
-		multiplier: 2.8,
-	},
-	{
-		imgUrl: "https://i.ibb.co/1nStPWT/uberblacksuv.png",
-		service: "Black SUV",
-		multiplier: 2.8,
-	},
-	{
-		imgUrl: "https://i.ibb.co/1nStPWT/uberblacksuv.png",
-		service: "Black SUV",
-		multiplier: 2.8,
-	},
 ];

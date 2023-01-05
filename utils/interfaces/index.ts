@@ -39,3 +39,48 @@ export interface carListType {
 	service: string;
 	multiplier: number;
 }
+
+export interface DistanceProps {
+	pickUpX: number;
+	pickUpY: number;
+	dropOffX: number;
+	dropOffY: number;
+}
+
+export interface Admin {
+	iso_3166_1_alpha3: string;
+	iso_3166_1: string;
+}
+
+export interface Leg {
+	via_waypoints: any[];
+	admins: Admin[];
+	weight: number;
+	duration: number;
+	steps: any[];
+	distance: number;
+	summary: string;
+}
+
+export interface Route {
+	country_crossed: boolean;
+	weight_name: string;
+	weight: number;
+	duration: number;
+	distance: number;
+	legs: Leg[];
+	geometry: string;
+}
+
+export interface Waypoint {
+	distance: number;
+	name: string;
+	location: number[];
+}
+
+export interface DistanceData {
+	routes: Route[];
+	waypoints: Waypoint[];
+	code: string;
+	uuid: string;
+}
