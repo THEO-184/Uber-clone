@@ -9,7 +9,6 @@ import { carList } from "../utils/constants";
 const Confirm = () => {
 	const { query } = useRouter();
 	const { pickup, dropOff } = query;
-	console.log({ pickup, dropOff });
 
 	const { coordinates: pickUpCoordinates } = useGetCoordinates(
 		pickup as string
