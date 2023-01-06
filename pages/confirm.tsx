@@ -5,20 +5,24 @@ import { useGetCoordinates, useGetDistanceDuration } from "../utils/hooks";
 import DriveDetails from "../components/DriveDetails";
 import { carList } from "../utils/constants";
 import BackBtn from "../components/Buttons";
+import { GetServerSideProps, GetServerSidePropsResult } from "next";
+import {
+	fetchCoordinates,
+	fetchDistanceDuration,
+	getRideDetails,
+} from "../services";
+import { getPickUpDropOffCoordinates } from "../utils/functions";
+import { RootObject } from "../utils/interfaces";
 
-const Confirm = () => {
-	const { query } = useRouter();
-	const { pickup, dropOff } = query;
+interface Props {
+	coordinates: (RootObject | undefined)[];
+	duration: number;
+}
 
-	const { coordinates, isLoading, duration } = useGetCoordinates(
-		pickup as string,
-		dropOff as string
-	);
+const Confirm = ({ coordinates, duration }: Props) => {
 	const pickUpCoordinates = coordinates && coordinates[0]?.features[0]?.center;
 	const dropOffCoordinates = coordinates && coordinates[1]?.features[0]?.center;
 
-	console.log("coordinates", coordinates);
-	console.log("duration", duration);
 	return (
 		<div className="flex flex-col h-screen ">
 			<div className="flex-1 relative">
@@ -61,6 +65,22 @@ const Confirm = () => {
 			</div>
 		</div>
 	);
+};
+
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+	const { pickup, dropOff } = query;
+
+	const { dropOffCoords, duration, pickUpCoords } = await getRideDetails(
+		pickup as string,
+		dropOff as string
+	);
+
+	return {
+		props: {
+			coordinates: [pickUpCoords, dropOffCoords],
+			duration: duration!,
+		},
+	};
 };
 
 export default Confirm;

@@ -1,3 +1,4 @@
+import { getPickUpDropOffCoordinates } from "../utils/functions";
 import { DistanceData, DistanceProps, RootObject } from "../utils/interfaces";
 
 const baseUrl = process.env.NEXT_PUBLIC_MAPBOX_API as string;
@@ -39,3 +40,24 @@ export async function fetchDistanceDuration({
 		console.log("error", error);
 	}
 }
+
+export const getRideDetails = async (pickup: string, dropOff: string) => {
+	const [pickUpCoords, dropOffCoords] = await Promise.all([
+		fetchCoordinates(pickup),
+		fetchCoordinates(dropOff),
+	]);
+	const { pickUpX, pickUpY, dropOffX, dropOffY } = getPickUpDropOffCoordinates(
+		pickUpCoords,
+		dropOffCoords
+	);
+	const distanceDurationResponse = await fetchDistanceDuration({
+		pickUpX: pickUpX!,
+		pickUpY: pickUpY!,
+		dropOffX: dropOffX!,
+		dropOffY: dropOffY!,
+	});
+	const duration =
+		distanceDurationResponse &&
+		distanceDurationResponse.routes[0]?.distance / 1000;
+	return { pickUpCoords, dropOffCoords, duration };
+};
