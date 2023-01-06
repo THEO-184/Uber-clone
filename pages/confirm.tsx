@@ -10,17 +10,15 @@ const Confirm = () => {
 	const { query } = useRouter();
 	const { pickup, dropOff } = query;
 
-	const { coordinates: pickUpCoords } = useGetCoordinates(pickup as string);
-	const { coordinates: dropOfCoords } = useGetCoordinates(dropOff as string);
-	const pickUpCoordinates = pickUpCoords?.features[0]?.center!;
-	const dropOffCoordinates = dropOfCoords?.features[0]?.center!;
-	const { duration } = useGetDistanceDuration({
-		pickUpX: pickUpCoordinates && pickUpCoordinates[0],
-		pickUpY: pickUpCoordinates && pickUpCoordinates[1],
-		dropOffX: dropOffCoordinates && dropOffCoordinates[0],
-		dropOffY: dropOffCoordinates && dropOffCoordinates[1],
-	});
+	const { coordinates, isLoading, duration } = useGetCoordinates(
+		pickup as string,
+		dropOff as string
+	);
+	const pickUpCoordinates = coordinates && coordinates[0]?.features[0]?.center;
+	const dropOffCoordinates = coordinates && coordinates[1]?.features[0]?.center;
 
+	console.log("coordinates", coordinates);
+	console.log("duration", duration);
 	return (
 		<div className="flex flex-col h-screen ">
 			<div className="flex-1 relative">
