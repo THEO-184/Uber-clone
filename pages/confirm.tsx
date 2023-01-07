@@ -1,17 +1,10 @@
 import React from "react";
 import Map from "../components/Map";
-import { useRouter } from "next/router";
-import { useGetCoordinates, useGetDistanceDuration } from "../utils/hooks";
 import DriveDetails from "../components/DriveDetails";
 import { carList } from "../utils/constants";
 import BackBtn from "../components/Buttons";
-import { GetServerSideProps, GetServerSidePropsResult } from "next";
-import {
-	fetchCoordinates,
-	fetchDistanceDuration,
-	getRideDetails,
-} from "../services";
-import { getPickUpDropOffCoordinates } from "../utils/functions";
+import { GetServerSideProps } from "next";
+import { getRideDetails } from "../services";
 import { RootObject } from "../utils/interfaces";
 
 interface Props {
